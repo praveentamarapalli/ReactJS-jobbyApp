@@ -1,0 +1,132 @@
+.login-bg-container {
+  background-color: #000000;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .login-container {
+    background-color: #272727;
+    width: 350px;
+    height: 400px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 20px 20px 20px;
+  }
+  .website-logo {
+    width: 180px;
+    height: 50px;
+    margin: 20px 0px 20px 0px;
+  }
+
+  .label {
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 20px;
+    align-self: flex-start;
+    color: #f8fafc;
+    padding-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    height: 40px;
+    width: 300px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    background-color: #272727;
+    border: 2px solid #7e858e;
+    border-radius: 5px;
+    color: #f1f5f9;
+  }
+
+  .submit-button {
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    height: 36px;
+    width: 302px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .error-msg {
+    font-family: 'Roboto';
+    font-size: 16px;
+    font-weight: 300;
+    color: #ff0b37;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .login-container {
+    background-color: #272727;
+    width: 300px;
+    height: 350px;
+    border-radius: 10px;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+  .website-logo {
+    width: 150px;
+    height: 40px;
+    margin-bottom: 20px;
+  }
+
+  .label {
+    font-family: 'Roboto';
+    font-weight: 600;
+    font-size: 18px;
+    align-self: flex-start;
+    color: #f8fafc;
+    padding-left: 10px;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    height: 35px;
+    width: 250px;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    background-color: #272727;
+    border: 2px solid #7e858e;
+    border-radius: 5px;
+    color: #f1f5f9;
+  }
+
+  .submit-button {
+    background-color: #6366f1;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    height: 30px;
+    width: 250px;
+    padding-left: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    outline: none;
+  }
+
+  .error-msg {
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: 300;
+    color: #ff0b37;
+    margin-bottom: 20px;
+  }
+}
