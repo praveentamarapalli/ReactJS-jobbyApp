@@ -57,44 +57,45 @@ class Jobs extends Component {
   state = {
     jobsList: [],
     apiStatus: apiStatusConstants.initial,
-    searchInput: '',
     employeeType: [],
     minimumSalary: 0,
+    searchInput: '',
   }
 
   componentDidMount() {
-    this.getJobsList()
+    this.getJobs()
   }
 
-  getJobsList = async () => {
+  getJobs = async () => {
     this.setState({
       apiStatus: apiStatusConstants.inProgress,
     })
     const {employeeType, minimumSalary, searchInput} = this.state
+    const apiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeType.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
     const jwtToken = Cookies.get('jwt_token')
-    const jobsApiUrl = `https://apis.ccbp.in/jobs?employment_type=${employeeType.join()}&minimum_package=${minimumSalary}&search=${searchInput}`
+
     const options = {
       headers: {
         Authorization: `Bearer ${jwtToken}`,
       },
       method: 'GET',
     }
-    const response = await fetch(jobsApiUrl, options)
-    if (response.ok) {
+    const response = await fetch(apiUrl, options)
+    if (response.ok === true) {
       const data = await response.json()
-      const updatedData = data.jobs.map(eachItem => ({
-        companyLogoUrl: eachItem.company_logo_url,
-        employmentType: eachItem.employment_type,
-        id: eachItem.id,
-        jobDescription: eachItem.job_description,
-        location: eachItem.location,
-        packagePerAnnum: eachItem.package_per_annum,
-        rating: eachItem.rating,
-        title: eachItem.title,
+      const updatedJobsData = data.jobs.map(eachJob => ({
+        companyLogoUrl: eachJob.company_logo_url,
+        employmentType: eachJob.employment_type,
+        id: eachJob.id,
+        jobDescription: eachJob.job_description,
+        location: eachJob.location,
+        packagePerAnnum: eachJob.package_per_annum,
+        rating: eachJob.rating,
+        title: eachJob.title,
       }))
       this.setState({
+        jobsList: updatedJobsData,
         apiStatus: apiStatusConstants.success,
-        jobsList: updatedData,
       })
     } else {
       this.setState({
@@ -105,9 +106,9 @@ class Jobs extends Component {
 
   renderJobsList = () => {
     const {jobsList} = this.state
-    const renderJobs = jobsList.length > 0
+    const renderJobsList = jobsList.length > 0
 
-    return renderJobs ? (
+    return renderJobsList ? (
       <div className="all-jobs-container">
         <ul className="jobs-list">
           {jobsList.map(job => (
@@ -145,7 +146,7 @@ class Jobs extends Component {
         type="button"
         data-testid="button"
         className="jobs-failure-button"
-        onClick={this.getJobsList}
+        onClick={this.getJobs}
       >
         Retry
       </button>
@@ -179,18 +180,18 @@ class Jobs extends Component {
 
   onEnterSearchInput = event => {
     if (event.key === 'Enter') {
-      this.getJobsList()
+      this.getJobs()
     }
   }
 
   changeSalary = salary => {
-    this.setState({minimumSalary: salary}, this.getJobsList)
+    this.setState({minimumSalary: salary}, this.getJobs)
   }
 
   changeEmployeeList = type => {
     this.setState(
       prev => ({employeeType: [...prev.employeeType, type]}),
-      this.getJobsList,
+      this.getJobs,
     )
   }
 
@@ -206,7 +207,7 @@ class Jobs extends Component {
               salaryRangesList={salaryRangesList}
               changeSearchInput={this.changeSearchInput}
               searchInput={searchInput}
-              getJobsList={this.getJobsList}
+              getJobs={this.getJobs}
               changeSalary={this.changeSalary}
               changeEmployeeList={this.changeEmployeeList}
             />
@@ -214,16 +215,16 @@ class Jobs extends Component {
               <div className="search-input-container-desktop">
                 <input
                   type="search"
-                  placeholder="Search"
                   className="search-input-desktop"
-                  onChange={this.onChangeSearchInput}
+                  placeholder="Search"
+                  onChange={this.changeSearchInput}
                   onKeyDown={this.onEnterSearchInput}
                 />
                 <button
                   type="button"
                   data-testid="searchButton"
                   className="search-button-container-desktop"
-                  onClick={this.getJobsList}
+                  onClick={this.getJobs}
                 >
                   <BsSearch className="search-icon-desktop" />
                 </button>
@@ -236,5 +237,4 @@ class Jobs extends Component {
     )
   }
 }
-
 export default Jobs
