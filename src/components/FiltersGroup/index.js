@@ -1,4 +1,5 @@
 import {BsSearch} from 'react-icons/bs'
+
 import ProfileDetails from '../ProfileDetails'
 import './index.css'
 
@@ -9,14 +10,14 @@ const FiltersGroup = props => {
   }
 
   const onEnterSearchInput = event => {
-    const {getJobsList} = props
+    const {getJobs} = props
     if (event.key === 'Enter') {
-      getJobsList()
+      getJobs()
     }
   }
 
   const renderSearchInput = () => {
-    const {getJobsList, searchInput} = props
+    const {getJobs, searchInput} = props
     return (
       <div className="search-input-container">
         <input
@@ -31,7 +32,7 @@ const FiltersGroup = props => {
           type="button"
           data-testid="searchButton"
           className="search-button-container"
-          onClick={getJobsList}
+          onClick={getJobs}
         >
           <BsSearch className="search-icon" />
         </button>
@@ -79,28 +80,31 @@ const FiltersGroup = props => {
   const renderSalaryRange = () => {
     const {salaryRangesList} = props
     return (
-      <div>
+      <div className="salary-range-container">
         <h1 className="salary-range-heading">Salary Range</h1>
-        <ul>
-          {salaryRangesList.map(eachItem => {
+        <ul className="salary-range-list-container">
+          {salaryRangesList.map(eachSalary => {
             const {changeSalary} = props
             const onClickSalary = () => {
-              changeSalary(eachItem.salaryRangeId)
+              changeSalary(eachSalary.salaryRangeId)
             }
             return (
               <li
-                onClick={onClickSalary}
-                key={eachItem.salaryRangeId}
                 className="salary-item"
+                key={eachSalary.salaryRangeId}
+                onClick={onClickSalary}
               >
                 <input
                   type="radio"
-                  id={eachItem.salaryRangeId}
+                  id={eachSalary.salaryRangeId}
                   name="salary"
                   className="check-input"
                 />
-                <label htmlFor={eachItem.salaryRangeId} className="check-label">
-                  {eachItem.label}
+                <label
+                  htmlFor={eachSalary.salaryRangeId}
+                  className="check-label"
+                >
+                  {eachSalary.label}
                 </label>
               </li>
             )
@@ -111,7 +115,7 @@ const FiltersGroup = props => {
   }
 
   return (
-    <div>
+    <div className="filters-group-container">
       {renderSearchInput()}
       <ProfileDetails />
       <hr className="horizontal-line" />
@@ -121,5 +125,4 @@ const FiltersGroup = props => {
     </div>
   )
 }
-
 export default FiltersGroup

@@ -130,3 +130,22 @@
     margin-bottom: 20px;
   }
 }
+
+.showPassword {
+  display: flex;
+  align-self: flex-start;
+  justify-content: start;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}
+
+.checkboxLabel {
+  font-family: 'Roboto';
+  font-size: 14px;
+  color: #ffffff;
+  margin: 10px 10px;
+}
+
+.checkbox {
+  width: 16px;
+}

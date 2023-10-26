@@ -189,10 +189,18 @@ class Jobs extends Component {
   }
 
   changeEmployeeList = type => {
-    this.setState(
-      prev => ({employeeType: [...prev.employeeType, type]}),
-      this.getJobs,
-    )
+    const {employeeType} = this.state
+    if (employeeType.includes(type)) {
+      const updatedEmployeeType = employeeType.filter(
+        eachItem => eachItem !== type,
+      )
+      this.setState({employeeType: updatedEmployeeType}, this.getJobs)
+    } else {
+      this.setState(
+        prev => ({employeeType: [...prev.employeeType, type]}),
+        this.getJobs,
+      )
+    }
   }
 
   render() {
@@ -215,6 +223,7 @@ class Jobs extends Component {
               <div className="search-input-container-desktop">
                 <input
                   type="search"
+                  value={searchInput}
                   className="search-input-desktop"
                   placeholder="Search"
                   onChange={this.changeSearchInput}

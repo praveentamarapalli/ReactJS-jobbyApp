@@ -5,8 +5,9 @@ import './index.css'
 
 class LoginForm extends Component {
   state = {
-    username: '',
-    password: '',
+    username: 'rahul',
+    password: 'rahul@2021',
+    showPassword: false,
     showError: false,
     errorMsg: '',
   }
@@ -54,8 +55,14 @@ class LoginForm extends Component {
     })
   }
 
+  onClickShowPassword = () => {
+    this.setState(prevState => ({
+      showPassword: !prevState.showPassword,
+    }))
+  }
+
   render() {
-    const {username, password, showError, errorMsg} = this.state
+    const {username, password, showPassword, showError, errorMsg} = this.state
     const jwtToken = Cookies.get('jwt_token')
     if (jwtToken !== undefined) {
       return <Redirect to="/" />
@@ -83,13 +90,24 @@ class LoginForm extends Component {
             PASSWORD
           </label>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             value={password}
             id="password"
             placeholder="Password"
             className="input"
             onChange={this.onChangePassword}
           />
+          <div className="showPassword">
+            <input
+              type="checkbox"
+              className="checkbox"
+              id="showPassword"
+              onChange={this.onClickShowPassword}
+            />
+            <label htmlFor="showPassword" className="checkboxLabel">
+              Show Password
+            </label>
+          </div>
           <button type="submit" className="submit-button">
             Login
           </button>
